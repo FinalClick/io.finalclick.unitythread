@@ -1,55 +1,38 @@
-# Addressable Resources
-##### Unity Package: `io.finalclick.addressableresources`
+# Final Click - Unity Main Thread Dispatcher
 
+Run code safely on Unity’s main thread (for APIs like `UnityWebRequest`, `Instantiate`, etc.) with async/await support.  
+Package: `io.finalclick.unitythread` → `https://github.com/FinalClick/io.finalclick.unitythread.git?path=/Assets/Package`
 
-## **Drop-in Addressables support for `Resources.Load`.**  
+## Installation
 
-This package overrides Unity's internal `ResourcesAPI` to allow transparent loading of Addressables from folders named `AddressableResources`.
+Add via git url from package manager: `https://github.com/FinalClick/io.finalclick.unitythread.git?path=/Assets/Package`
 
+## Usage
 
-## 🔧 How It Works
+### Running synchronous functions
 
-Whenever you call `Resources.Load`, this package will:
-
-1. **First attempt** to load the asset using the Addressables system from folders named `AddressableResources/`
-2. **Fallback** to Unity's built-in `Resources` loading if the asset is not marked or found as an Addressable
-
-✅ Works in both **runtime** and **editor** code  
-✅ Zero changes to existing `Resources.Load` code needed
-
----
-
-## 📦 Setup Instructions
-
-To start using `AddressableResources` instead of `Resources`:
-
-1. **Rename** any folder named `Resources/` to `AddressableResources/`
-2. **Mark** the assets inside as **Addressable**
-
-That’s it! Your calls to `Resources.Load("MyAsset")` will now resolve from the Addressables system if possible.
-
----
-
-## 📁 Example
-
-### Old Structure:
-```
-Assets/
-└── Resources/
-    └── MyAsset.prefab
+```csharp
+int result = await UnityMainThread.Run(() => {
+    Debug.Log("Running on main thread!");
+    return 42;
+});
 ```
 
-### New Structure:
+### Running asynchronous functions
+
+```csharp
+await UnityMainThread.Run(async () => {
+    await Task.Delay(1000);
+    Debug.Log("Finished after 1 second on main thread.");
+});
 ```
-Assets/
-└── AddressableResources/
-    └── MyAsset.prefab   <-- Marked as Addressable
+
+### Running asynchronous functions with return value
+
+```csharp
+string message = await UnityMainThread.Run(async () => {
+    await Task.Delay(500);
+    return "Hello from main thread!";
+});
+Debug.Log(message);
 ```
-
----
-
-## ⚠️ Notes
-
-- Folders must be explicitly named `AddressableResources/` to be picked up by this override.
-- Assets must be marked as Addressable
-- Compatible with both runtime and editor utility scripts.
