@@ -1,9 +1,12 @@
 # Final Click - Unity Main Thread Dispatcher
 
-Run code safely on Unity’s main thread (for APIs like `UnityWebRequest`, `Instantiate`, etc.) with async/await support.  
-Package: `io.finalclick.unitythread` → `https://github.com/FinalClick/io.finalclick.unitythread.git?path=/Assets/Package`
+###### io.finalclick.unitythread
+
+Run code safely on Unity’s main thread (for APIs like `UnityWebRequest`, `Instantiate`, etc.) with async/await support.
 
 ## Installation
+
+### Git URL
 
 Add via git url from package manager: `https://github.com/FinalClick/io.finalclick.unitythread.git?path=/Assets/Package`
 
