@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace FinalClic.UnityThread
+namespace FinalClick.UnityThread
 {
     public static class UnityMainThread
     {
